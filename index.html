@@ -8,26 +8,31 @@
 <div class="randomArr"></div>
 <button class="randomBtn">随机数据</button>
 <hr>
-<div>
-    <p class="insertSort"></p>
-    <p class="insertJudge"></p>
-</div>
 
+<div id="container"></div>
 
 <script src="./utils/index.js"></script>
 <script src="insertSort.js"></script>
+<script src="quickSort.js"></script>
+<script src="bubbleSort.js"></script>
+<script src="bucketSort.js"></script>
+<script src="countSort.js"></script>
+<script src="heapSort.js"></script>
+<script src="mergeSort.js"></script>
+<script src="radixSort.js"></script>
+<script src="selectSort.js"></script>
+<script src="shellSort.js"></script>
 
 <script>
     let randomArr
 
     let data = [
-        {
-            sortFn: insertSort,
-            sortedClass: '.insertSort',
-            judgeClass: '.insertJudge'
-        }
+        insertSort,
+        binaryInsertSort,
+        quickSort
     ]
 
+    let container = document.querySelector('#container')
 
     document.querySelector('.randomBtn').addEventListener('click', function (e) {
         renderRandomNumber()
@@ -45,21 +50,38 @@
     }
 
     /**
-     * 渲染指定排序方法
+     * 渲染指定排序方法, 使用dom API 填充页面
      */
-    function renderSortMethod(sortFn, arr, sortedClass, judgeClass) {
+    function renderSortMethod(sortFn, arr) {
         let sortArr = sortFn(arr)
-        document.querySelector(sortedClass).innerHTML = `${sortFn.name}: ${beautifyArrDisplay(sortArr)}`
-        document.querySelector(judgeClass).innerHTML = `${sortFn.name} judge: ${judgeIsSorted(sortArr)}`
+
+        let fragment = document.createDocumentFragment()
+
+        let div = document.createElement('div')
+        let p1 = document.createElement('p')
+        let p2 = p1.cloneNode()
+
+        p1.textContent = `${sortFn.name}: ${beautifyArrDisplay(sortArr)}`
+        p2.textContent = `${sortFn.name} judge: ${judgeIsSorted(sortArr)}`
+
+        div.appendChild(p1)
+        div.appendChild(p2)
+
+        fragment.appendChild(div)
+        fragment.appendChild(document.createElement('hr'))
+
+        container.appendChild(fragment)
     }
 
     /**
      * 渲染所有排序方法
      */
     function renderAll() {
-        for (let item of data) {
-            let {sortFn, sortedClass, judgeClass} = item
-            renderSortMethod(sortFn, randomArr, sortedClass, judgeClass)
+        //清空
+        container.innerHTML = ''
+
+        for (let fn of data) {
+            renderSortMethod(fn, randomArr)
         }
     }
 
