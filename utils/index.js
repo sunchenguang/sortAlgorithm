@@ -1,5 +1,5 @@
 /**
- * 生成指定范围包含min, max, [min, max]，指定数目的随机数数组
+ * 生成指定范围[min, max]，指定数目的随机数数组
  * @param min
  * @param max
  * @param amount
@@ -15,10 +15,13 @@ function generateRandomNumber(min = 0, max = 100, amount = 10) {
     return arr
 }
 
-
+/**
+ * 判断arr数组是否已经被排好序
+ * @param arr
+ * @returns {boolean}
+ */
 function judgeIsSorted(arr = []) {
     let tmp = arr.slice()
-
 
     tmp.sort((a, b) => {
         return a - b
@@ -31,8 +34,14 @@ function judgeIsSorted(arr = []) {
 }
 
 
-
-
+/**
+ * 美化数组展示
+ * @param arr
+ * @param connector
+ */
+function beautifyArrDisplay(arr, connector = '，') {
+    return arr.join(connector)
+}
 
 
 

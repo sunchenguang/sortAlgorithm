@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="randomArr"></div>
+<button class="randomBtn">随机数据</button>
+<hr>
+<div>
+    <p class="insertSort"></p>
+    <p class="insertJudge"></p>
+</div>
+
+
+<script src="./utils/index.js"></script>
+<script src="insertSort.js"></script>
+
+<script>
+    let randomArr
+
+    let data = [
+        {
+            sortFn: insertSort,
+            sortedClass: '.insertSort',
+            judgeClass: '.insertJudge'
+        }
+    ]
+
+
+    document.querySelector('.randomBtn').addEventListener('click', function (e) {
+        renderRandomNumber()
+        renderAll()
+    })
+    //进入后首先触发一次事件
+    document.querySelector('.randomBtn').click()
+
+    /**
+     * 渲染生成的随机数
+     */
+    function renderRandomNumber() {
+        randomArr = generateRandomNumber()
+        document.querySelector('.randomArr').innerHTML = `randomArr: ${beautifyArrDisplay(randomArr)}`
+    }
+
+    /**
+     * 渲染指定排序方法
+     */
+    function renderSortMethod(sortFn, arr, sortedClass, judgeClass) {
+        let sortArr = sortFn(arr)
+        document.querySelector(sortedClass).innerHTML = `${sortFn.name}: ${beautifyArrDisplay(sortArr)}`
+        document.querySelector(judgeClass).innerHTML = `${sortFn.name} judge: ${judgeIsSorted(sortArr)}`
+    }
+
+    /**
+     * 渲染所有排序方法
+     */
+    function renderAll() {
+        for (let item of data) {
+            let {sortFn, sortedClass, judgeClass} = item
+            renderSortMethod(sortFn, randomArr, sortedClass, judgeClass)
+        }
+    }
+
+
+</script>
+
+</body>
+</html>
