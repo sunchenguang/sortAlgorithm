@@ -63,9 +63,20 @@ function binaryInsertSort(arr = []) {
 }
 
 
+function anotherInsertSort(arr) {
+    var len = arr.length;
+    //从第一张牌到最后一张牌
+    for (var i = 1; i < len; i++) {
+        var j = i - 1;
+        var tmpVal = arr[i];
+        //选中的牌要和前面已排序好的牌进行比较，在合适位置插入
+        while (j >= 0 && arr[j] > tmpVal) {
+            arr[j + 1] = arr[j];
+            j--;
+        }
+        arr[j + 1] = tmpVal;
+    }
+    return arr;
 
-
-
-
-
+}
 

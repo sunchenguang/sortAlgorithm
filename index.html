@@ -29,7 +29,12 @@
     let data = [
         insertSort,
         binaryInsertSort,
-        quickSort
+        quickSort,
+        normalBubble,
+        improvedBubble,
+        selectSort,
+        shellSort,
+        mergeSort
     ]
 
     let container = document.querySelector('#container')
@@ -54,7 +59,6 @@
      */
     function renderSortMethod(sortFn, arr) {
         let sortArr = sortFn(arr)
-
         let fragment = document.createDocumentFragment()
 
         let div = document.createElement('div')
@@ -77,11 +81,11 @@
      * 渲染所有排序方法
      */
     function renderAll() {
-        //清空
+        //先清空
         container.innerHTML = ''
 
         for (let fn of data) {
-            renderSortMethod(fn, randomArr)
+            renderSortMethod(fn, randomArr.slice())
         }
     }
 
